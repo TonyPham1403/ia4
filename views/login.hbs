@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-9 col-md-7 mx-auto">
+      <div class="card border-0 my-5" style="background-color: var(--gradient-base-background-2); max-width: 70rem">
+        <div class="card-body p-4 p-sm-5">
+          <h1 class="text-center mb-3 fw-light header-font" style="font-size: 48px">Login</h1>
+          <form action='/auth/login' method="post">
+            <div class="mb-3">
+              <input type="email" class="form-control" placeholder="Email" name="email" required />
+            </div>
+            <div class="mb-3">
+              <input type="password" class="form-control" placeholder="Password" name="password" required />
+            </div>
+            <div class="d-grid">
+              <button class="btn btn-primary btn-login text-capitalize w-10 m-auto px-4 border-0"
+                style="background-color: var(--palette-02);" type="submit">Sign in</button>
+            </div>
+          </form>
+          <hr class="border-1 border-top border-secondary" />
+          <div class="d-flex flex-row gap-2 justify-content-between mt-3">
+            <a href="/auth/forgot-password">Forgot Your Password?</a>
+            <a href="/auth/register">Create Account</a>
+          </div>
+          <a href="/auth/google">
+            <div
+              class="d-flex flex-row gap-2 align-items-center justify-content-between mt-3 border p-2 google-sign-in text-danger">
+              <i class="fa-brands fa-google"></i>
+              Sign in with Google
+              <div></div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  .google-sign-in {
+    transition: all 0.3s ease;
+  }
+
+  .google-sign-in:hover {
+    background-color: var(--palette-03);
+    color: #fff !important;
+  }
+</style>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const error = '{{#if error}}{{error}}{{/if}}';
+    const success = '{{#if success}}{{success}}{{/if}}';
+
+    if (error) {
+      toastr.error(error);
+    }
+
+    if (success) {
+      toastr.success(success);
+    }
+  });
+</script>

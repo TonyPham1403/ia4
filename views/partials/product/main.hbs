@@ -1,0 +1,125 @@
+<div style='padding:24px; display: flex; gap: 80px;'>
+  <div style='width: 500px;'>
+    <div class='large-image' style='width: 100%; height:500px;'>
+      <img src={{book.thumbnail}} width='100%' height='100%' style='object-fit: contain;' />
+    </div>
+  </div>
+  <div style='flex: 1; display: flex; flex-direction: column; gap:16px;'>
+    <h1 class='m-0'>{{book.title}}</h1>
+    <div class='short-desc'>
+      {{book.brief_des}}
+    </div>
+    <div>
+      <p class='product-label'>Price</p>
+      <span class='text-secondary fs-5 m-0'>${{book.price}}</span>
+    </div>
+    <div>
+      <p class='product-label'>Vendor</p>
+      <span>{{book.vendor}}</span>
+    </div>
+    <div>
+      <p class='product-label'>Type</p>
+      <span>{{category.title}}</span>
+    </div>
+    <div>
+      <p class='product-label'>Language</p>
+      <span>{{book.language}}</span>
+    </div>
+    <div>
+      <p class='product-label'>Publication Date</p>
+      <span>{{date}}</span>
+    </div>
+    <div class='d-flex'>
+      <p class='product-label'>Quantity</p>
+      <div class='quantityWrap'>
+        <div class='quantityBtn' onclick='changeQuantity(-1)'>-</div>
+        <span id='quantity' class='quantityValue'>1</span>
+        <div class='quantityBtn' onclick='changeQuantity(1)'>+</div>
+      </div>
+    </div>
+    <div>
+      <p class='product-label'>Availability</p>
+      <span>
+        {{book.inventory}}
+        In stock</span>
+    </div>
+    <div>
+      <a href="/cart/add-to-cart/{{book.id}}?quantity={{desiredQuantity}}" type="button" id="add-to-cart">
+        <div class='btn btn-primary rounded-0 border-0 shopping-btn'
+          style='background-color: var(--palette-02); padding: 0.75rem 3rem;'>
+          Add to cart
+        </div>
+      </a>
+      <a href="">
+        <div class='btn btn-primary rounded-0 border-0 shopping-btn'
+          style='background-color: var(--palette-02); padding: 0.75rem 3rem;'>Shop now</div>
+      </a>
+    </div>
+    <div>
+      <i class='fa-solid fa-truck-fast'></i>
+      <span>Estimated deliver 5-7 days</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .shopping-btn:hover {
+    transition: background-color 0.3s ease-in-out;
+    background-color: var(--palette-03) !important;
+  }
+
+  .product-label {
+    margin: 0;
+    min-width: 140px;
+    display: inline-block;
+    font-size: 100%;
+  }
+
+  .short-desc {
+    width: 100%;
+    max-height: 96px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .quantityWrap {
+    display: flex;
+    width: fit-content;
+    height: fit-content;
+    border: 1px solid black;
+  }
+
+  .quantityBtn {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .quantityValue {
+    width: 42px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+  }
+</style>
+
+<script>
+  function changeQuantity(amount) {
+    let currentQuantity = parseInt(document.querySelector("#quantity").innerText) || 0;
+    let newQuantity = currentQuantity + amount;
+    if (newQuantity > 0) {
+      document.querySelector("#quantity").innerText = newQuantity;
+
+      // Update the href of the "Add to cart" button with the new quantity
+      const addToCartButton = document.querySelector('#add-to-cart');
+      const bookId = '{{book.id}}'; // Replace this with the actual book ID
+      const addToCartURL = `/cart/add-to-cart/${bookId}?quantity=${newQuantity}`;
+      addToCartButton.setAttribute('href', addToCartURL);
+    }
+  }
+</script>

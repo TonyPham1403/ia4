@@ -1,0 +1,15 @@
+<div>
+	{{> home/hero}}
+	{{> home/shipping}}
+	{{> home/arrivals}}
+	{{> home/newsletter}}
+</div>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		const success = '{{#if success}}{{success}}{{/if}}';
+		if (success) {
+			toastr.success(success);
+		}
+	});
+</script>

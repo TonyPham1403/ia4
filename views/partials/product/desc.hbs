@@ -1,0 +1,30 @@
+<div style='padding-left: 4rem;'>
+  <div
+    class='btn btn-primary rounded-0 border-0 mb-4'
+    style='background-color: var(--palette-02); padding: 0.75rem 2rem; cursor: initial'
+  >Full Description
+  </div>
+
+  <div style='display: flex; flex-direction: column; gap:12px;'>
+    <b>Description</b>
+    <span>
+      {{book.full_des}}
+    </span>
+    <ul>
+      <li><b>Pages: </b>{{book.pages}} Pages</li>
+      <li><b>Author: </b>{{book.author_name}}</li>
+      <li><b>Language: </b>{{book.language}}</li>
+      <li><b>Reading Age: </b>Good for {{book.age}}+</li>
+    </ul>
+  </div>
+
+  <div style='display: flex; flex-direction: column; gap:12px;'>
+    <b>Terms of Sale:</b>
+    <span>
+      We offer a seven-day return and exchange policy. Returns and exchanges can
+      be initiated from your account's orders section. The tags and stickers
+      should be left on to ensure that the item is returned to you in the same
+      condition in which it was delivered.
+    </span>
+  </div>
+</div>

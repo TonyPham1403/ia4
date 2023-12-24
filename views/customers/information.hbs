@@ -1,0 +1,211 @@
+<section>
+  <div class="container py-5">
+    <div class="row">
+      <div class="col">
+        <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+          <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+              <a href="/">
+                Home
+              </a>
+            </li>
+            <li class="breadcrumb-item">
+              <a href="/auth/profile">
+                Profile
+              </a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+              {{title}}
+            </li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+
+    <div class="card mb-4">
+      <div
+        class="card-header d-flex justify-content-between align-items-center"
+      >
+        <p
+          class="header-font fw-bold fs-4 m-0"
+          style="color: var(--palette-02)"
+        >
+          Information
+        </p>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-12 d-flex flex-column align-items-center gap-2">
+            {{#if avatar}}
+              <img
+                src="{{avatar}}"
+                alt="avatar"
+                class="rounded-circle img-fluid avatar-image"
+                style="width: 200px; height: 200px; object-fit:cover;"
+              />
+            {{else}}
+              <img
+                src="https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
+                alt="avatar"
+                class="rounded-circle img-fluid avatar-image"
+                style="width: 200px; height: 200px; object-fit:cover;"
+              />
+            {{/if}}
+            <a href="/auth/profile/information">
+              Edit avatar
+              <i class="fa-solid fa-pen-to-square"></i>
+            </a>
+          </div>
+        </div>
+        <hr />
+
+        <form action="/auth/profile/information" method="POST">
+          <div class="row">
+            <div class="col-sm-2">
+              <p class="mb-0">
+                First Name
+              </p>
+            </div>
+            <div class="col-sm-6">
+              <p class="text-muted mb-0">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="First name"
+                  aria-label="First name"
+                  value={{first_name}}
+                  name="firstname"
+                />
+              </p>
+            </div>
+          </div>
+          <hr />
+          <div class="row">
+            <div class="col-sm-2">
+              <p class="mb-0">
+                Last Name
+              </p>
+            </div>
+            <div class="col-sm-6">
+              <p class="text-muted mb-0">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Last name"
+                  aria-label="Last name"
+                  value={{last_name}}
+                  name="lastname"
+                />
+              </p>
+            </div>
+          </div>
+          <hr />
+          <div class="row">
+            <div class="col-sm-2">
+              <p class="mb-0">
+                Email
+              </p>
+            </div>
+            <div class="col-sm-6">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Email"
+                aria-label="Email"
+                value={{email}}
+                disabled
+              />
+            </div>
+          </div>
+          <hr />
+          <div class="row">
+            <div class="col-sm-2">
+              <p class="mb-0">
+                Phone
+              </p>
+            </div>
+            <div class="col-sm-6">
+              <input
+                type="tel"
+                class="form-control"
+                placeholder="Phone number"
+                aria-label="Phone number"
+                name="phone"
+                value="{{phone}}"
+              />
+            </div>
+          </div>
+          <hr />
+          <div class="row">
+            <div class="col-sm-2">
+              <p class="mb-0">
+                Default address
+              </p>
+            </div>
+            <div class="col-sm-6">
+                <p class="text-muted mb-0">
+                  {{#if defaultAddress}}
+                    {{defaultAddress.name}} </br>
+                    {{defaultAddress.phone}} </br>
+                    {{defaultAddress.address}} </br>
+                  {{else}}
+                    There is no default address
+                  {{/if}}
+                </p>
+            </div>
+            <div class="col-sm-4 text-end">
+              <a
+                role="button"
+                class="btn btn-primary btn-login w-10 m-auto px-4 border-1"
+                style="border-color:var(--palette-02); background-color: transparent; color: var(--palette-02);"
+                href="/auth/profile/addresses"
+              >
+                Go to addresses book
+              </a>
+            </div>
+          </div>
+          <hr />
+          <div class="row">
+            <div class="col-sm-2">
+              <p class="mb-0">
+                Default payment
+              </p>
+            </div>
+            <div class="col-sm-6">
+              <p class="text-muted mb-0">
+                  {{#if defaultPayment}}
+                    {{defaultPayment.name}} </br>
+                    {{defaultPayment.type}} </br>
+                    {{defaultPayment.number}} </br>
+                  {{else}}
+                    There is no default payment method
+                  {{/if}}
+              </p>
+            </div>
+            <div class="col-sm-4 text-end">
+              <a
+                role="button"
+                class="btn btn-primary btn-login w-10 m-auto px-4 border-1"
+                style="border-color:var(--palette-02); background-color: transparent; color: var(--palette-02);"
+                href="/auth/profile/addresses"
+              >
+                Go to payment methods
+              </a>
+            </div>
+          </div>
+          <hr />
+
+          <div class="w-100 text-center">
+            <button
+              class="btn btn-primary btn-login w-10 m-auto px-4 border-0"
+              style="background-color: var(--palette-02);"
+              type="submit"
+            >
+              Update information
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

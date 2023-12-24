@@ -1,0 +1,43 @@
+<div
+  style='padding: 4rem 10rem;'
+  class='text-center d-flex flex-column align-items-center'
+>
+  <h1 class='text-uppercase mb-4 fw-bold header-font fs-2'>New arrivals</h1>
+
+  <div class='book-cards-container mt-4 row'>
+    {{#each newArrivalBooks}}
+      <div class='col-3'>
+        <div class='book-card-container'>
+          <a href='/product/{{this._id}}'>
+
+            <div
+              class='img-container'
+              style="width: 100%;
+      padding-top: 150%;
+      background-image: url('{{this.thumbnail}}');
+      background-size: cover;"
+            >
+            </div>
+          </a>
+          <div class='card-body text-center py-4'>
+            <div
+              style='overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-overflow: ellipsis;'
+            >
+              <a href='/product/{{this._id}}'>
+                <h1 class='fs-4 header-font fw-bold'>{{this.title}}</h1>
+              </a>
+            </div>
+            <p class='text-secondary fs-5'>${{this.price}}</p>
+          </div>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+</div>
+
+<style>
+  .tab-button{ background-color: white; color: black !important; transition: all
+  0.4s ease-in-out;} .tab-button:hover{background-color: var(--palette-02)
+  !important;color: white !important;} .tab-button.active{ background-color:
+  var(--palette-02) !important; color: white !important;}
+</style>

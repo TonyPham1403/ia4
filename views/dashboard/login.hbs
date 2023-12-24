@@ -1,0 +1,36 @@
+<div class="container-fluid py-3">
+  <a href="/">
+    <i class="fa-solid fa-backward fs-3"></i>
+  </a>
+  <div class="container" style="transform: translateY(50%)">
+    <div class="row">
+      <div class="col-sm-9 col-md-7 mx-auto">
+        <div class="card border-0 my-5" style="background-color: var(--gradient-base-background-2); max-width: 70rem">
+          <div class="card-body p-4 p-sm-5">
+            <div class="mb-4">
+              <h1 class="text-center mb-3 fw-light header-font" style="font-size: 48px">Admin Login</h1>
+              <p class="text-secondary text-center">Please enter your detais</p>
+            </div>
+            {{#if error}}
+            <div class="alert alert-danger" role="alert">
+              {{error}}
+            </div>
+            {{/if}}
+            <form action="/admin/login" method="post">
+              <div class="mb-3">
+                <input type="email" class="form-control" placeholder="Email" name="email" required />
+              </div>
+              <div class="mb-3">
+                <input type="password" class="form-control" placeholder="Password" name="password" required />
+              </div>
+              <div class="d-grid">
+                <button class="btn btn-primary btn-login text-capitalize w-10 m-auto px-4 border-0"
+                  style="background-color: var(--palette-02);" type="submit">Sign in</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

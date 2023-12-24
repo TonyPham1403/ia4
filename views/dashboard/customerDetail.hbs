@@ -1,0 +1,406 @@
+<div class="mb-3">
+  <div class="row">
+    <div class="col">
+      <nav aria-label="breadcrumb" class="bg-white rounded-3 p-3 mb-4">
+        <ol class="breadcrumb mb-0">
+          <li class="breadcrumb-item">
+            <a href="/admin">
+              Admin
+            </a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="/admin/customers">
+              Customers List
+            </a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">
+            Detail Customer
+          </li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+  <div class="row">
+    <h1 class="header-font">
+      {{customer.last_name}} {{customer.first_name}}
+    </h1>
+  </div>
+</div>
+
+<div class="card mb-3">
+  <form action="/admin/customers/{{customer._id}}/update" method="POST">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-6">
+          <div class="form-floating mb-3">
+            <input
+              type="text"
+              name="first_name"
+              class="form-control"
+              id="first-name"
+              placeholder="Input first name"
+              required
+              style="height: 56px"
+              value="{{customer.first_name}}"
+            />
+            <label for="first-name">
+              First name
+            </label>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-floating mb-3">
+            <input
+              type="text"
+              name="last_name"
+              class="form-control"
+              id="last-name"
+              placeholder="Input last name"
+              required
+              style="height: 56px"
+              value="{{customer.last_name}}"
+            />
+            <label for="last-name">
+              Last name
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="form-floating mb-3">
+        <input
+          type="text"
+          name="phone"
+          class="form-control"
+          id="phone"
+          placeholder="Input phone"
+          style="height: 56px"
+          value="{{customer.phone}}"
+        />
+        <label for="language">
+          Phone
+        </label>
+      </div>
+
+      <div class="col-12 d-flex gap-2">
+        <img
+          src="{{customer.avatar}}"
+          style="width: 150px"
+          alt="{{customer.first_name}}{{customer.last_name}}"
+        />
+      </div>
+    </div>
+    <div class="card-footer d-flex justify-content-end">
+      <button type="submit" class="btn btn-primary">
+        Update
+      </button>
+    </div>
+  </form>
+</div>
+<div class="d-flex flex justify-content-between align-items-start mb-2">
+  <h2 class="header-font" style="color: var(--palette-02)">
+    Addresses Book
+  </h2>
+  <button
+    type="button"
+    class="btn btn-primary btn-login border-0 d-flex flex align-items-center"
+    style="background-color: var(--palette-03);"
+    data-bs-toggle="modal"
+    data-bs-target="#addModal"
+  >
+    <i class="fa-solid fa-plus me-2"></i>
+    Add new address
+  </button>
+</div>
+<div class="card mb-4">
+  <div class="card-body">
+
+    <div class="table-responsive">
+      <table class="table">
+        <thead class="table-light">
+          <tr>
+            <th class="text-truncate">
+              Name
+            </th>
+            <th class="text-truncate">
+              Phone
+            </th>
+            <th class="text-truncate">
+              Address
+            </th>
+            <th class="text-truncate">
+              Is default?
+            </th>
+            <th class="text-truncate">
+              Quick Actions
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each addresses}}
+            <tr>
+              <td class="text-truncate">
+                {{this.name}}
+              </td>
+              <td class="text-truncate">
+                {{this.phone}}
+              </td>
+              <td class="text-truncate"  style="max-width: 300px;">
+                {{this.address}}
+              </td>
+              <td class="text-truncate">
+                <form action="/admin/customers/{{this.customer_id}}/addresses/{{this._id}}/makedefault" method="POST">
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="defaultAddressSwitch" name="address"
+                    onchange="submitForm(this)"
+                      {{#if this.default}}
+                      checked disabled
+                      {{/if}}
+                    >
+                    <label class="form-check-label" for="defaultAddressSwitch">
+                      {{#if this.default}}
+                      Yes
+                      {{else}}
+                      No
+                      {{/if}}
+                    </label>
+                  </div>
+                </form>
+              </td>
+              <td class="text-truncate">
+
+                  <div class="flex d-flex gap-1">
+                    <button
+                      type="button"
+                      class="btn btn-outline-secondary"
+                      data-bs-toggle="modal"
+                      data-bs-target="#updateModal{{this._id}}"
+                    ><i class="fa-solid fa-pen-to-square"></i>
+                    </button>
+
+                    <form
+                      action="/admin/customers/{{this.customer_id}}/addresses/{{this._id}}/delete"
+                      method="POST"
+                    >
+                      <button
+                        type="submit"
+                        class="btn btn-outline-danger"
+                        {{#if this.default}}
+                            disabled=true
+                        {{/if}}
+                      >
+                        <i class="fa-solid fa-trash"></i>
+                      </button>
+
+                    </form>
+                  </div>
+                
+              </td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<script>
+  function submitForm(checkbox) {
+    const form = checkbox.closest("form");
+
+    if (form) {
+      form.submit();
+    }
+  }
+</script>
+
+
+{{#each addresses}}
+    <div
+      class="modal fade"
+      id="updateModal{{this._id}}"
+      tabindex="-1"
+      aria-labelledby="updateModal{{this._id}}Label"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="updateModal{{this._id}}Label">
+              Update address
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <form
+            action="/admin/customers/{{this.customer_id}}/addresses/{{this._id}}/update"
+            method="POST"
+          >
+            <div class="modal-body">
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="nameInput"
+                  placeholder="Name"
+                  name="name"
+                  value="{{this.name}}"
+                />
+                <label for="nameInput">
+                  Name
+                </label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="tel"
+                  class="form-control"
+                  id="phoneInput"
+                  placeholder="Phone"
+                  name="phone"
+                  value="{{this.phone}}"
+                />
+                <label for="phoneInput">
+                  Phone
+                </label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="addressInput"
+                  placeholder="Address"
+                  name="address"
+                  value="{{this.address}}"
+                />
+                <label for="addressInput">
+                  Address
+                </label>
+              </div>
+              <div class="form-check mb-3">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="checkbox"
+                  name="defaultAddress"
+                  {{#if this.default}}checked{{/if}}
+                />
+                <label class="form-check-label" for="checkbox">
+                  Default Address?
+                </label>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                type="submit"
+                class="btn btn-primary border-0"
+                style="background-color: var(--palette-02);"
+              >
+                Update
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+{{/each}}
+
+
+<div
+  class="modal fade"
+  id="addModal"
+  tabindex="-1"
+  aria-labelledby="addModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="addModalLabel">
+          Add new address
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <form action="/admin/customers/{{customer._id}}/addresses/add" method="POST">
+        <div class="modal-body">
+          <div class="form-floating mb-3">
+            <input
+              type="text"
+              class="form-control"
+              id="nameInput"
+              placeholder="Name"
+              name="name"
+            />
+            <label for="nameInput">
+              Name
+            </label>
+          </div>
+          <div class="form-floating mb-3">
+            <input
+              type="tel"
+              class="form-control"
+              id="phoneInput"
+              placeholder="Phone"
+              name="phone"
+            />
+            <label for="phoneInput">
+              Phone
+            </label>
+          </div>
+          <div class="form-floating mb-3">
+            <input
+              type="text"
+              class="form-control"
+              id="addressInput"
+              placeholder="Address"
+              name="address"
+            />
+            <label for="addressInput">
+              Address
+            </label>
+          </div>
+          <div class="form-check mb-3">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="checkbox"
+              name="defaultAddress"
+            />
+            <label class="form-check-label" for="checkbox">
+              Default Address?
+            </label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary border-0"
+            style="background-color: var(--palette-02);"
+          >
+            Add
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

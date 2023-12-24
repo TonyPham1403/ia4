@@ -1,0 +1,19 @@
+<div class="container-fluid bg-light d-flex align-items-center justify-content-between" style="padding: 2rem 6rem;">
+  <div id="header-left-icons" class="d-flex gap-4">
+    <a href="/cart" class="position-relative">
+      {{#if session.cart.totalQty}}
+      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+        {{session.cart.totalQty}}
+      </span>
+      {{/if}}
+    </a>
+  </div>
+  <h1 class="header-font">Tic
+    <span class="header-font" style="color: var(--palette-02);">tac</span> toe
+  </h1>
+  <div id="header-right-icons" class="d-flex gap-4">
+    <a href="/auth/login">
+      <i class="fa-solid fa-user"></i>
+    </a>
+  </div>
+</div>
